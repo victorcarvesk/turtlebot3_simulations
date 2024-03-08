@@ -39,17 +39,11 @@ def generate_launch_description():
         'turtlebot3_dqn_stage3.world'
     )
 
-    gzserver_cmd = IncludeLaunchDescription(
+    gazebo_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
+            os.path.join(pkg_gazebo_ros, 'launch', 'gazebo.launch.py')
         ),
         launch_arguments={'world': world}.items()
-    )
-
-    gzclient_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
-        )
     )
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
@@ -72,8 +66,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     # Add the commands to the launch description
-    ld.add_action(gzserver_cmd)
-    ld.add_action(gzclient_cmd)
+    ld.add_action(gazebo_cmd)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(spawn_turtlebot_cmd)
 
